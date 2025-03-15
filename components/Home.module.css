@@ -1,0 +1,35 @@
+body {
+  background: white;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  max-width: 50rem;
+  width: 100%;
+  padding: 0 1rem;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.container nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw; /* Garante que ocupa toda a largura da tela */
+  padding: 2px;
+  border-bottom: 1px solid black;
+  background: white; /* Adiciona um fundo para que o conteúdo abaixo não apareça */
+  z-index: 1000; /* Garante que o nav fique sobre outros elementos */
+  display: flex;
+}
+
+.container nav img{
+  width: 80px;
+  margin: 10px 20px;
+}
+
+.mainContainer {
+  margin-top: 4rem; /* Ajusta para que o conteúdo não fique escondido pelo nav */
+}

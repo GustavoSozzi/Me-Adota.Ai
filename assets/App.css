@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+body{
+  padding-top: 4rem;
+  margin: 0px;
+  color: #333;
+  --type-first: Helvetica, Arial, sans-serif;
+  --type-second: "Spectral", Georgia;
+  font-family: var(--type-second);
+}
+
+.container{
+  max-width: 100%;
+  padding: 0 1rem;
+  margin: 0 auto;
+}
+

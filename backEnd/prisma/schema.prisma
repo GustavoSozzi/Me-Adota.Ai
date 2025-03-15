@@ -1,0 +1,91 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+model Administrador {
+  id    Int    @id @default(autoincrement())
+  nome  String
+  Abrigo Abrigo[]
+
+  @@map("Administrador")
+}
+
+model Abrigo {
+  id              Int    @id @default(autoincrement())
+  nomeSocial      String
+  cnpj            String
+  email           String
+  telefone        String
+  endereco        String
+  valido          Boolean
+  administradorId Int
+  administrador   Administrador @relation(fields: [administradorId], references: [id])
+  Pets            Pet[]
+  Doacoes         Doacao[]
+
+  @@map("Abrigo")
+}
+
+model Pet {
+  id           Int    @id @default(autoincrement())
+  nome         String
+  idade        Int
+  descricao    String
+  localizacao  String
+  foto         String // Pode ser uma URL ou caminho do arquivo
+  status       String
+  abrigoId     Int
+  abrigo       Abrigo @relation(fields: [abrigoId], references: [id])
+
+  @@map("Pet")
+}
+
+model Tutor {
+  id             Int    @id @default(autoincrement())
+  nomeCompleto   String
+  cpf            String
+  dataNascimento DateTime
+  email          String
+  telefone       String
+  Doacoes        Doacao[]
+  Historico      HistoricoDoacoes[]
+
+  @@map("Tutor")
+}
+
+model Doacao {
+  id              Int    @id @default(autoincrement())
+  valor           Float
+  data            DateTime
+  metodoPagamento String
+  codigoPix       String
+  comprovante     String // Pode ser um caminho do arquivo
+  tutorId         Int
+  tutor           Tutor @relation(fields: [tutorId], references: [id])
+  abrigoId        Int
+  abrigo          Abrigo @relation(fields: [abrigoId], references: [id])
+
+  @@map("Doacao")
+}
+
+model HistoricoDoacoes {
+  id                Int    @id @default(autoincrement())
+  data              DateTime
+  valor             Float
+  animalBeneficiado String
+  tutorId           Int
+  tutor             Tutor @relation(fields: [tutorId], references: [id])
+
+  @@map("HistoricoDoacoes")
+}
+
