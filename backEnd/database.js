@@ -13,7 +13,7 @@ export async function getAdministradores(){
   return rows
 } 
 
-export async function getAdministradores(id){
+export async function getAdministrador(id){
   const [rows] = await pool.query(`
     SELECT * 
     FROM administrador 

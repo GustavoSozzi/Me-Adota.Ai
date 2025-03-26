@@ -28,7 +28,7 @@ const Register = () => {
     };
 
     try {
-      const response = await fetch('http://localhost:5000/tutores', {
+      const response = await fetch('http://localhost:8080/administrador_rota', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(tutor),
