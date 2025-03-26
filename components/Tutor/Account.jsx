@@ -5,9 +5,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 const Account = () => {
   return (
     <div>
-      <Routes>
-        <Route path='register' element={<Register />} />
-      </Routes>
+      <p>pagina inicial</p>
     </div>
   );
 };

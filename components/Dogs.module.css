@@ -72,4 +72,20 @@ body{
   top: -1;
 }
 
+.searchInput {
+  width: 150px;
+  background-color: #d6d3d2;
+  transition: width 0.5s ease-in-out;
+  padding: 12px;
+  border: 1px solid gray; 
+  border-radius: 10px;
+  
+ 
+  background: url('../img/svg/search.svg') no-repeat right 10px center;
+  background-size: 15px 15px;
+  padding-right: 35px; 
+}
 
+.searchInput:focus {
+  width: 100%;
+}

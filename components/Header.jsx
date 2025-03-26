@@ -5,6 +5,7 @@ import Dogs from "../img/svg/Dog.Svg?react";
 import { Link } from 'react-router-dom';
 import Home from './Home';
 
+
 const Header = () => {
     //const {data, userLogout} = React.useContext();
 
@@ -38,6 +39,13 @@ const Header = () => {
                         <Link to="/sobre" className={`${styles.link} ${styles.login}`}>
                             Sobre nós
                         </Link>
+                    </li>
+                    <li>
+                        <div className="styles.navBar navbar-dark bg-dark input">
+                            <form className="styles.w75">
+                                    <input type="text" className={styles.searchInput} placeholder="Search"/>
+                            </form>
+                        </div>
                     </li>
                 </ul>
             </nav>
