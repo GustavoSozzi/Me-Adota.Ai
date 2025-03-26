@@ -1,11 +1,11 @@
 body {
   background: white;
-  margin: 0;
+  margin: 100%;
   padding: 0;
 }
 
 .container {
-  max-width: 50rem;
+  max-width: 100rem;
   width: 100%;
   padding: 0 1rem;
   margin: 0 auto;
