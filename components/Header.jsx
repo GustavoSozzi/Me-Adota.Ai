@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import styles from "./Dogs.module.css";
 import Dogs from "../img/svg/Dog.Svg?react";
 import { Link } from 'react-router-dom';
-import Home from './Home';
 
 
 const Header = () => {
@@ -26,7 +25,7 @@ const Header = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to="/login/register" className={`${styles.link} ${styles.login}`}>
+                        <Link to="/login" className={`${styles.link} ${styles.login}`}>
                             Tutor
                         </Link>
                     </li>

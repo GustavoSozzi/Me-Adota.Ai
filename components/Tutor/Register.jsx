@@ -12,23 +12,28 @@ const Register = () => {
   const telefone = useForm();
   const cpf = useForm();
   const email = useForm('email');
-  const password = useForm();
-  const dataNascimento = useForm();
+  const senha = useForm();
+  const dataNascimento = useForm('date');
 
   async function handleSubmit(event) {
     event.preventDefault();
 
+    if (!nomeCompleto.value || !telefone.value || !cpf.value || !email.value || !senha.value || !dataNascimento.value) {
+      alert('Preencha todos os campos!');
+      return;
+    }
+
     const tutor = {
-      nomeCompleto: nomeCompleto.value,
-      telefone: telefone.value,
-      cpf: cpf.value,
-      email: email.value,
-      password: password.value, // 🔹 Criptografar no backend
+      nomeCompleto: nomeCompleto.value.trim(),
+      telefone: telefone.value.trim(),
+      cpf: cpf.value.replace(/\D/g, ''), // 🔹 Remove pontos e traços do CPF
+      email: email.value.trim(),
+      senha: senha.value, // 🔹 O backend deve criptografar
       dataNascimento: dataNascimento.value,
     };
 
     try {
-      const response = await fetch('http://localhost:8080/administrador_rota', {
+      const response = await fetch('http://localhost:8080/tutores', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(tutor),
@@ -37,10 +42,12 @@ const Register = () => {
       if (response.ok) {
         alert('Cadastro realizado com sucesso!');
       } else {
-        alert('Erro ao cadastrar usuário');
+        const errorData = await response.json();
+        alert(`Erro ao cadastrar: ${errorData.message || 'Erro desconhecido'}`);
       }
     } catch (error) {
       console.error('Erro:', error);
+      alert('Erro ao conectar com o servidor.');
     }
   }
 
@@ -58,59 +65,12 @@ const Register = () => {
             <Link to="/login/entrar">Login</Link>
           </div>
           <form onSubmit={handleSubmit}>
-            <Input
-              label="Nome completo"
-              type="text"
-              name="nomeCompleto"
-              placeholder="Nome Completo"
-              value={nomeCompleto.value}
-              onChange={nomeCompleto.onChange}
-              onBlur={nomeCompleto.onBlur}
-            />
-            <Input
-              label="Telefone"
-              type="text"
-              name="telefone"
-              placeholder="55 67 XXXXXXXXX"
-              value={telefone.value}
-              onChange={telefone.onChange}
-              onBlur={telefone.onBlur}
-            />
-            <Input
-              label="CPF"
-              type="text"
-              name="cpf"
-              placeholder="XXX.XXX.XXX-XX"
-              value={cpf.value}
-              onChange={cpf.onChange}
-              onBlur={cpf.onBlur}
-            />
-            <Input
-              label="Email"
-              type="email"
-              name="email"
-              placeholder="hello@gmail.com"
-              value={email.value}
-              onChange={email.onChange}
-              onBlur={email.onBlur}
-            />
-            <Input
-              label="Senha"
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={password.value}
-              onChange={password.onChange}
-              onBlur={password.onBlur}
-            />
-            <Input
-              label="Data de Nascimento"
-              type="date"
-              name="dataNascimento"
-              value={dataNascimento.value}
-              onChange={dataNascimento.onChange}
-              onBlur={dataNascimento.onBlur}
-            />
+            <Input label="Nome completo" type="text" name="nomeCompleto" {...nomeCompleto} />
+            <Input label="Telefone" type="text" name="telefone" placeholder="55 67 XXXXXXXXX" {...telefone} />
+            <Input label="CPF" type="text" name="cpf" placeholder="XXX.XXX.XXX-XX" {...cpf} />
+            <Input label="Email" type="email" name="email" placeholder="hello@gmail.com" {...email} />
+            <Input label="Senha" type="password" name="senha" placeholder="Password" {...senha} />
+            <Input label="Data de Nascimento" type="date" name="dataNascimento" {...dataNascimento} />
             <Button>Criar Conta</Button>
           </form>
         </div>

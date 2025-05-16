@@ -2,7 +2,7 @@ import React from "react";
 import { USER_GET, TOKEN_POST, TOKEN_VALIDATE_POST } from "../data/api";
 import { useNavigate } from "react-router-dom";
 
-export const UserContext = React.createContext();
+export const userContext = React.createContext();
 
 export const UserStorage = ({ children }) => {
   //ARMAZENAR DADOS DO USUARIO
