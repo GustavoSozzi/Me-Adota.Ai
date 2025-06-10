@@ -6,20 +6,22 @@ import dogAbrigo from '../../img/svg/dogAbrigo.png';
 import styles from './Abrigo.module.css';
 
 const CadastrarAbrigo = () => {
-  const nomeSocial = useForm();
+  const razaoSocial = useForm();
   const email = useForm('email');
   const cnpj = useForm();
-  const endereco = useForm();
   const telefone = useForm();
+  const endereco = useForm();
+  const password = useForm();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const abrigoData = {
-      nomeSocial: nomeSocial.value,
+      razaoSocial:razaoSocial.value,
       cnpj: cnpj.value,
       email: email.value,
       telefone: telefone.value,
+      password: password.value,
       endereco: endereco.value,
     };
 
@@ -35,10 +37,11 @@ const CadastrarAbrigo = () => {
       if (response.ok) {
         alert('Abrigo cadastrado com sucesso!');
         // Se quiser limpar os campos:
-        nomeSocial.setValue('');
+        razaoSocial.setValue('');
         cnpj.setValue('');
         email.setValue('');
         telefone.setValue('');
+        password.setValue('');
         endereco.setValue('');
       } else {
         const error = await response.json();
@@ -68,23 +71,24 @@ const CadastrarAbrigo = () => {
 
       <form className={styles.form} onSubmit={handleSubmit}>
         <div>
-          <Input label="Nome Social" type="text" name="nomeSocial" {...nomeSocial} />
+          <Input label="Razao Social" type="text" name="nomeSocial" placeholder="razao social"{...razaoSocial} />
+        </div>
+        <div>
+          <Input label="CNPJ" type="text" name="cnpj" placeholder="cnpj"{...cnpj} />
+        </div>
+        <div>
+          <Input label="Email" type="email" name="email" placeholder="email"{...email} />
+        </div>
+        <div>
+          <Input label="Telefone" type="text" name="telefone" placeholder="telefone"{...telefone} />
         </div>
 
-        <div>
-          <Input label="CNPJ" type="text" name="cnpj" {...cnpj} />
-        </div>
-
-        <div>
-          <Input label="Email" type="email" name="email" {...email} />
-        </div>
-
-        <div>
-          <Input label="Telefone" type="text" name="telefone" {...telefone} />
+         <div className={styles.fullWidth}>
+          <Input label="Password" type="password" name="password" placeholder="password"{...password} />
         </div>
 
         <div className={styles.fullWidth}>
-          <Input label="Endereço" type="text" name="endereco" {...endereco} />
+          <Input label="Endereço" type="text" name="endereco" placeholder="endereco"{...endereco} />
         </div>
 
         <div className={styles.formButtons}>

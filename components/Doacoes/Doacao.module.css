@@ -1,0 +1,70 @@
+.container {
+  background-color: #4b2b80; /* Roxo escuro */
+  color: #ffffff;
+  min-height: 100vh;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.titulo {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.breadcrumb {
+  font-size: 0.9rem;
+  margin-bottom: 3rem;
+  color: #ddd;
+}
+
+.quoteBox {
+  background-color: #ffe25b;
+  color: #333;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+  gap: 2rem;
+  max-width: 900px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.quoteText {
+  font-size: 1.2rem;
+  font-weight: bold;
+  line-height: 1.6;
+}
+
+.quoteText::before,
+.quoteText::after {
+  content: '"';
+  font-size: 3rem;
+  color: #d4a500;
+}
+
+.petImage {
+  width: 250px;
+  height: auto;
+  border-radius: 1rem;
+  object-fit: cover;
+}
+
+.botaoDoar {
+  background-color: #4b2b80;
+  color: white;
+  padding: 0.8rem 2rem;
+  border: none;
+  border-radius: 2rem;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 1.5rem;
+  transition: background 0.3s ease;
+}
+
+.botaoDoar:hover {
+  background-color: #3b1f67;
+}

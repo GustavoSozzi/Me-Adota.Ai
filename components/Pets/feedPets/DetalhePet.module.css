@@ -1,0 +1,140 @@
+.header{
+  position: fixed;
+  top: 0px;
+  width: 100%;
+  height: 90px;
+  background-color: white;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  max-width: 700px;
+  margin: 30px auto;
+  padding: 25px 30px;
+  background-color: #FFFFFF;
+  border-radius: 14px;
+  box-shadow: 0 12px 24px rgba(0,0,0,0.12);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #2d2d2d;
+}
+
+.header {
+  background-color: #3b82f6;
+  padding: 14px 0;
+  margin-bottom: 35px;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.navContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+  display: flex;
+  align-items: center;
+}
+
+.navContainer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navContainer li {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.navContainer a img {
+  height: 42px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.navContainer a img:hover {
+  transform: scale(1.1);
+}
+
+.title {
+  font-size: 2.6rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+  color: black;
+}
+
+.petImage {
+  display: block;
+  max-width: 420px;
+  width: 100%;
+  height: auto;
+  margin: 0 auto 30px;
+  border-radius: 18px;
+  box-shadow: 0 10px 24px rgba(0,0,0,0.15);
+  object-fit: cover;
+  transition: box-shadow 0.3s ease;
+}
+
+.petImage:hover {
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+}
+
+.infoText strong {
+  color: #2563eb;
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+/* Responsividade */
+@media (max-width: 650px) {
+  .container {
+    margin: 20px 15px;
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .infoText {
+    font-size: 1rem;
+    padding: 0 5px;
+  }
+
+  .petImage {
+    max-width: 100%;
+    border-radius: 14px;
+  }
+}
+
+.p{
+  font-size: 1.15rem;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto 18px;
+  padding: 0 10px;
+  color: #444;
+}
+
+.nav{
+  display: flex;
+  list-style: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: white;
+  height: 90px;
+}
+
+.nav ul {
+  list-style: none;
+  text-decoration: none;
+}
+
+.nav img{
+  height: 6rem;
+}

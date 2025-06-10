@@ -1,5 +1,5 @@
 import styles from '../../components/Tutor/Conta.module.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Dogs from '../../img/svg/Dog.Svg?react';
 import IconPontos from '../../img/svg/icon_pontos.png?react';
 import user_icon from '../../img/svg/user_icon.svg?react';
@@ -8,6 +8,8 @@ import FeedTutor from './FeedTutor';
 
 const Tutor = () => {
   const [tutorNome, setTutorNome] = useState('');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const storedTutor = localStorage.getItem('tutor');
@@ -15,13 +17,18 @@ const Tutor = () => {
       try {
         const parsed = JSON.parse(storedTutor);
         setTutorNome(parsed.nomeCompleto);
+        setIsLoggedIn(true);
       } catch (e) {
         console.error('Erro ao ler tutor do localStorage', e);
+        navigate('/login');
       }
     }
-  }, []);
+  }, [navigate]);
 
-  useEffect;
+  const handleLogout = () => {
+    localStorage.removeItem('tutor')
+    navigate('/login')
+  } 
 
   return (
     <div>
@@ -30,12 +37,11 @@ const Tutor = () => {
           {''}
           <ul>
             <li>
-              <Link to="/" aria-label="Dogs  -Home" className={styles.link}>
+              <Link to="/" aria-label="Dogs - Home" className={styles.link}>
                 <img src={Dogs} alt="Dog Shelter" />
                 <img src={IconPontos} alt="Icon Pontos" />
               </Link>
             </li>
-            {/* Icone de menu*/}
             <li>
               <Link
                 to="/Historico"
@@ -51,18 +57,31 @@ const Tutor = () => {
             </li>
 
             {/*Nome de usuario e icone*/}
-            <li className={StyleSheet.userSection}>
+            <li className={styles.userSection}>
               <span className={`${styles.link} ${styles.login}`}>
                 {tutorNome}
               </span>
             </li>
-            <Link to="/" aria-label="User - Icon" className={styles.link}>
-              <img src={user_icon} alt="User Dogs" />
-            </Link>
+            <li>
+              <button
+                onClick={handleLogout}
+                type="button"
+                className={styles.link}
+                style={{
+                  background: 'none',
+                  border: 'none',
+                  padding: 0,
+                  cursor: 'pointer',
+                }}
+                aria-label="Logout"
+              >
+                <img src={user_icon} alt="logout" />
+              </button>
+            </li>
           </ul>
         </nav>
       </header>
-      <FeedTutor/>
+      <FeedTutor />
     </div>
   );
 };

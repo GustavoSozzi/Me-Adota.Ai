@@ -23,6 +23,7 @@
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
+  background-color: white;
 }
 
 .header ul{
@@ -33,7 +34,7 @@
   align-items: center;
   text-decoration: none;
   gap: 1rem;
-  margin-left: 29rem;
+  margin-left: 38rem;
   justify-content: space-between;
   padding: 2rem;
 }

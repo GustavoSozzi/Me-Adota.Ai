@@ -57,26 +57,27 @@ export async function createTutor(nomeCompleto, telefone, cpf, email, senha, dat
 
 
 
-export async function createAbrigo(nomeSocial, cnpj, email, telefone, endereco) {
+export async function createAbrigo(razaoSocial, cnpj, email, telefone, password, endereco) {
   const [result] = await pool.query(
-    'INSERT INTO Abrigos (nomeSocial, cnpj, email, telefone, endereco) VALUES (?, ?, ?, ?, ?)',
-    [nomeSocial, cnpj, email, telefone, endereco]
+    'INSERT INTO Abrigo (razaoSocial, cnpj, email, telefone, password, endereco) VALUES (?, ?, ?, ?, ?, ?)',
+    [razaoSocial, cnpj, email, telefone, password, endereco]
   );
   return {
     id: result.insertId,
-    nomeSocial,
+    razaoSocial,
     cnpj,
     email,
     telefone,
+    password,
     endereco,
   };
 }
 
 // 🔹 Criar um pet (animal)
-export async function createPet(nome, idade, descricao, localizacao, foto, status, abrigoId = null) {
+export async function createPet(nome, idade, descricao, localizacao, foto, status, abrigoId = null, tutorId = null) {
   const [result] = await pool.query(
-    'INSERT INTO Pet (nome, idade, descricao, localizacao, foto, status, abrigoId) VALUES (?, ?, ?, ?, ?, ?, ?)',
-    [nome, idade, descricao, localizacao, foto, status, abrigoId]
+    'INSERT INTO Pet (nome, idade, descricao, localizacao, foto, status, abrigoId, tutorId) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    [nome, idade, descricao, localizacao, foto, status, abrigoId, tutorId]
   );
   return {
     id: result.insertId,
@@ -87,6 +88,7 @@ export async function createPet(nome, idade, descricao, localizacao, foto, statu
     foto,  // Nome da foto
     status,
     abrigoId,
+    tutorId,
   };
 }
 
@@ -131,6 +133,25 @@ export async function loginTutor(email, senha) {
   return rows;
 }
 
+export async function loginAbrigo(email, senha){
+  const [rows] = await pool.query(
+    'SELECT * FROM abrigo WHERE email = ? AND password = ?',
+    [email, senha]
+  );
+  return rows;
+}
+
+export async function getAnimais() {
+  const [rows] = await pool.query("SELECT * FROM Pet");
+  return rows;
+}
+
+export async function getAnimalById(id){
+  const result = await pool.query("SELECT * FROM pet WHERE id = ?", [id]);
+  return result[0]
+}
+
+
 // 🔹 Buscar todos os tutores
 export async function getTutores() {
   const [rows] = await pool.query("SELECT * FROM Tutor");
@@ -146,12 +167,12 @@ export async function getTutor(id) {
   return rows[0];
 }
 
-export async function getAnimals(id){
+export async function getPetsByTutorId(tutorId){
   const [rows] = await pool.query(
-    "SELECT * FROM animais where id = ?",
-    [id]
-  );
-  return rows[0];
+    'SELECT * FROM Pet Where tutorId = ?',
+    [tutorId]
+  )
+  return rows
 }
 
 
@@ -160,3 +181,44 @@ const result = await getAdministradores();
 console.log(result);
 
 export { pool };
+
+// Criar token para abrigo
+export async function createTokenAbrigo(abrigoId, token) {
+  const [result] = await pool.query(
+    `INSERT INTO tokens_abrigos (abrigo_id, token) VALUES (?, ?)
+     ON DUPLICATE KEY UPDATE token = VALUES(token), created_at = CURRENT_TIMESTAMP`,
+    [abrigoId, token]
+  );
+  return {
+    id: result.insertId,
+    abrigoId,
+    token,
+    createdAt: new Date(),
+  };
+}
+
+// Buscar token pelo abrigoId
+export async function getTokenByAbrigoId(abrigoId) {
+  const [rows] = await pool.query(
+    `SELECT * FROM tokens_abrigos WHERE abrigo_id = ?`,
+    [abrigoId]
+  );
+  return rows[0];
+}
+
+// Deletar token pelo abrigoId (ex: logout)
+export async function deleteTokenByAbrigoId(abrigoId) {
+  const [result] = await pool.query(
+    `DELETE FROM tokens_abrigos WHERE abrigo_id = ?`,
+    [abrigoId]
+  );
+  return result.affectedRows > 0;
+}
+
+// Limpar tokens expirados (executar periodicamente)
+export async function deleteExpiredTokens() {
+  const [result] = await pool.query(
+    `DELETE FROM tokens_abrigos WHERE created_at < (NOW() - INTERVAL 1 HOUR)`
+  );
+  return result.affectedRows;
+}

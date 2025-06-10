@@ -5,12 +5,28 @@ import Head from '../../hooks/helper/Head';
 import Input from '../Forms/Input';
 import useForm from '../Forms/useForm';
 import dog from '../../img/svg/Dog.svg';
+import { useEffect} from 'react';
 import icon_pontos from '../../img/svg/icon_pontos.png';
 
 const Account = () => {
   const email = useForm('email');
   const senha = useForm();
   const navigate = useNavigate(); //redirecionamento
+
+  useEffect(() => {
+    const storedTutor = localStorage.getItem('tutor');
+    if(storedTutor){
+      try{
+        const parsed = JSON.parse(storedTutor)
+        if(parsed  && parsed.nomeCompleto){
+          navigate('/tutor')
+        }
+      }catch(e){
+        console.error('Erro ler tutor do localStorage', e)
+        localStorage.removeItem('tutor')
+      }
+    }
+  }, [navigate])
 
   async function handleSubmit(event) {
     event.preventDefault();

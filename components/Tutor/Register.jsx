@@ -1,4 +1,3 @@
-import React from 'react';
 import Input from '../Forms/Input';
 import Button from '../Forms/Button';
 import styles from '../../components/Tutor/Account.module.css';
@@ -15,6 +14,7 @@ const Register = () => {
   const senha = useForm();
   const dataNascimento = useForm('date');
 
+
   async function handleSubmit(event) {
     event.preventDefault();
 
@@ -26,9 +26,9 @@ const Register = () => {
     const tutor = {
       nomeCompleto: nomeCompleto.value.trim(),
       telefone: telefone.value.trim(),
-      cpf: cpf.value.replace(/\D/g, ''), // 🔹 Remove pontos e traços do CPF
+      cpf: cpf.value.replace(/\D/g, ''), 
       email: email.value.trim(),
-      senha: senha.value, // 🔹 O backend deve criptografar
+      senha: senha.value, 
       dataNascimento: dataNascimento.value,
     };
 
@@ -65,7 +65,7 @@ const Register = () => {
             <Link to="/login/entrar">Login</Link>
           </div>
           <form onSubmit={handleSubmit}>
-            <Input label="Nome completo" type="text" name="nomeCompleto" {...nomeCompleto} />
+            <Input label="Nome completo" type="text" name="nomeCompleto" placeholder="Nome Completo" {...nomeCompleto} />
             <Input label="Telefone" type="text" name="telefone" placeholder="55 67 XXXXXXXXX" {...telefone} />
             <Input label="CPF" type="text" name="cpf" placeholder="XXX.XXX.XXX-XX" {...cpf} />
             <Input label="Email" type="email" name="email" placeholder="hello@gmail.com" {...email} />
