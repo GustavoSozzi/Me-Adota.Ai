@@ -5,6 +5,15 @@
   text-align: center;
 }
 
+a{
+  text-decoration: none;
+  color: inherit
+}
+
+a:hover{
+  color:   deepskyblue;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;

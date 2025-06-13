@@ -56,7 +56,6 @@ const Tutor = () => {
               </Link>
             </li>
 
-            {/*Nome de usuario e icone*/}
             <li className={styles.userSection}>
               <span className={`${styles.link} ${styles.login}`}>
                 {tutorNome}

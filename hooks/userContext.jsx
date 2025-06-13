@@ -4,27 +4,37 @@ export const UserContext = createContext();
 
 export const UserStorage = ({ children }) => {
   const [login, setLogin] = useState(null);
-  const [tipo, setTipo] = useState(null); // novo
+  const [usuario, setUsuario] = useState(null);
 
   useEffect(() => {
-    const usuario = JSON.parse(localStorage.getItem('usuario'));
-    if (usuario) {
+    const storedUser = localStorage.getItem('usuario');
+    if (storedUser) {
+      setUsuario(JSON.parse(storedUser));
       setLogin(true);
-      setTipo(usuario.tipo); // "abrigo" ou "tutor"
     } else {
       setLogin(false);
-      setTipo(null);
     }
   }, []);
 
-  function logout() {
-    localStorage.removeItem('usuario');
-    setLogin(false);
-    setTipo(null);
+  if(login === null) return <p>Carregando...</p>
+
+  function loginUser(usuarioData) {
+    localStorage.setItem('usuario', JSON.stringify(usuarioData));
+    setUsuario(usuarioData);
+    setLogin(true);
   }
 
+  function logout() {
+    localStorage.removeItem('usuario');
+    setUsuario(null);
+    setLogin(false);
+  }
+
+  console.log("contexto atual:", { login, usuario });
+
+
   return (
-    <UserContext.Provider value={{ login, tipo, logout }}>
+    <UserContext.Provider value={{ login, usuario, loginUser, logout }}>
       {children}
     </UserContext.Provider>
   );

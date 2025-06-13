@@ -1,22 +1,45 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Input from '../Forms/Input';
 import Button from '../Forms/Button';
 import styles from '../Pets/RegisterPets.module.css';
 import dog from '../../img/svg/Dog.svg';
 import icon_pontos from '../../img/svg/icon_pontos.png';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
+import useFetch from '../../hooks/useFetch';
+import { PETS_REGISTER } from '../../data/api';
+import { UserContext } from '../../hooks/userContext';
 
 const RegisterPets = () => {
+  const { usuario } = useContext(UserContext);
+
   const [form, setForm] = useState({
     nome: '',
     idade: '',
     descricao: '',
     localizacao: '',
     status: 'disponível',
+    abrigoId: '',
   });
-  const navigate = useNavigate();
 
   const [foto, setFoto] = useState(null);
+  const [abrigoNome, setAbrigoNome] = useState('');
+  const navigate = useNavigate();
+  const { request, loading, error } = useFetch();
+  console.log('passei aqui register pets');
+
+  useEffect(() => {
+    if (!usuario || usuario.id) {
+      navigate('/abrigo/login');
+      return;
+    }
+    setAbrigoNome(usuario.abrigo?.razaoSocial || usuario.nome || 'Abrigo');
+    setForm((prev) => ({ ...prev, abrigoId: usuario.abrigo.id }));
+  }, [usuario, navigate]);
+
+  const handleLogout = () => {
+    localStorage.removeItem('usuario')
+    navigate('/');
+  }
 
   function handleChange({ target }) {
     setForm({ ...form, [target.name]: target.value });
@@ -35,40 +58,40 @@ const RegisterPets = () => {
     formData.append('descricao', form.descricao);
     formData.append('localizacao', form.localizacao);
     formData.append('status', form.status);
+    formData.append('abrigoId', form.abrigoId);
+
     if (foto) formData.append('foto', foto);
 
-    try {
-      const response = await fetch('http://localhost:8080/pets', {
-        method: 'POST',
-        body: formData,
+    const { url, options } = PETS_REGISTER(formData);
+    const { response, json } = await request(url, options);
+
+    if (response.ok) {
+      navigate('/pets/sucessfullPet');
+      setForm({
+        nome: '',
+        idade: '',
+        descricao: '',
+        localizacao: '',
+        status: '',
       });
-
-      const data = await response.json();
-
-      if (response.ok) {
-        navigate('/pets/sucessfullPet');
-        alert('Pet cadastrado com sucesso!');
-        setForm({
-          nome: '',
-          idade: '',
-          descricao: '',
-          localizacao: '',
-          status: '',
-        });
-        setFoto(null);
-      } else {
-        alert(data.message || 'Erro ao cadastrar Pet.');
-      }
-    } catch (error) {
-      console.error('Erro:', error);
+      setFoto(null);
+    } else {
+      alert(json?.message || 'Erro ao cadastrar Pet.');
     }
   }
 
   return (
     <div className={styles.animeLeft}>
       <nav>
-        <img src={icon_pontos} alt="pontos" />
-        <img src={dog} alt="dog - nav" />
+        <Link to="/" arial-label="Dogs-Home">
+          <img src={icon_pontos} alt="pontos"/>
+          <img src={dog} alt="dog - nav" onClick={handleLogout}/>
+        </Link>
+        <li className={styles.userSection}>
+          <span className={`${styles.link} ${styles.login}`}>
+            {abrigoNome && `Bem-vindo, ${abrigoNome}`}
+          </span>
+        </li>
       </nav>
       <div className={`${styles.container} animeLeft`}>
         <h1>Cadastro de Pet</h1>
@@ -124,7 +147,11 @@ const RegisterPets = () => {
             />
           </label>
 
-          <Button type="submit">Cadastrar Pet</Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? 'Cadastrando...' : 'Cadastrar Pet'}
+          </Button>
+
+          {error && <p className={styles.error}>Erro: {error}</p>}
         </form>
       </div>
     </div>

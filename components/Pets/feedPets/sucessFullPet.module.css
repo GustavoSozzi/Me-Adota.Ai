@@ -1,0 +1,61 @@
+.sucess-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: #fefefe;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.sucess_nav{
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 1rem 2rem;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.icon_pontos {
+  width: 40px;
+  height: auto;
+}
+
+.icon_dog {
+  width: 60px;
+  height: auto;
+}
+
+.sucess_content {
+  margin-top: 10rem;
+  text-align: center;
+  margin-left: 20rem;
+}
+
+.sucess_content h1 {
+  font-size: 3rem;
+  color: black;
+  margin-bottom: 1rem;
+}
+
+.sucess_content p {
+  font-size: 1.2rem;
+  color: #555;
+  margin-bottom: 2rem;
+}
+
+.sucess_content button {
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sucess_content button:hover {
+  background-color: black;
+}

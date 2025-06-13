@@ -41,3 +41,52 @@ export function ABRIGO_LOGIN(body) {
     },
   };
 }
+
+export function PETS_REGISTER(formData){
+  return {
+  url: `${API_URL}/pets`,
+  options: {
+    method: 'POST',
+    body: formData,
+    },
+  };
+}
+
+export function ABRIGO_REGISTER(body){
+  return {
+    url: `${API_URL}/abrigos`,
+    options: {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+    }
+  };
+}
+
+export function SEND_PAYMENT({valor, email}){
+  return {
+    url: `${API_URL}/criar-pagamento`,
+    options: {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      }
+    },
+    body: JSON.stringify({valor, email})
+  }
+}
+
+export function SEND_MAIL(body){
+  return {
+     url: `${API_URL}/api/send`,
+     options: {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+     }
+  }
+}

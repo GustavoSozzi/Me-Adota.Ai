@@ -1,14 +1,42 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from './FeedDogsItem.module.css';
-import { FOTO_GET } from '../../data/api';
+import { FOTO_GET, PETS_REGISTER } from '../../data/api';
 import classNames from 'classnames';
 import { Navigate, useNavigate } from 'react-router-dom';
+import { SEND_PAYMENT } from '../../data/api';
+import useFetch from '../../hooks/useFetch';
 
-const FeedDogsItem = ({ photo, index }) => {
+const FeedDogsItem = ({ photo, index, setModalPhoto }) => {
+  const [qrCodeData, setQrCodeData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const {url, options, request} = useFetch()
   const navigate = useNavigate()
 
-  function handleClick(){
+  const handleClick = async () => {
     navigate(`/animal/${photo.id}`)
+  }
+
+  const handleDoarClick = async (e) => {
+    e.stopPropagation();
+
+    try{
+      const {url, options} = SEND_PAYMENT({
+        valor: 20.00,
+        email: 'doador@exemplo.com'
+      });
+      const {response, json} = await request(url, options)
+
+      if(json.point_of_interaction?.transaction_data?.qr_code_base64){
+        setQrCodeData({
+          petId: photo.id,
+          qrCode: json.point_of_interaction.transaction_data.qr_code_base_64
+        });
+      }
+    }catch(err){
+      console.error('Erro ao criar pagamento',err)
+    }finally{
+      setLoading(false)
+    }
   }
 
   const itemClass = classNames(styles.photo, {
@@ -22,6 +50,17 @@ const FeedDogsItem = ({ photo, index }) => {
         alt={`Foto de ${photo.nome}`}
         className={styles.image}
       />
+      <button onClick={handleDoarClick}  className={styles.button}
+      disabled={loading}>
+        {loading ? 'Gerando QR Code...' : 'Doar com PIX'}
+      </button>
+      
+      {qrCodeData && qrCodeData.petId === photo.id && qrCodeData.qrCode && (
+        <div className={styles.qrcode}>
+          <img src={`data:image/png;base64,${qrCodeData}`} alt="QR code doação" />
+          <p>Escaneie para doar ❤️</p>
+        </div>
+      )}
     </li>
   );
 };

@@ -51,4 +51,12 @@
 .input[type="file"] {
   background-color: transparent;
 }
+
+.userSection{
+  list-style: none;
+  text-decoration: none;
+  justify-content: right;
+  font-size: 1.5rem;
+  margin-left: 90rem;
+}
  

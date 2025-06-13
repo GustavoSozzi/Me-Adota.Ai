@@ -5,6 +5,7 @@ import SucessfullPet from './feedPets/sucessfullPet'
 
 
 const Pets = () => {
+  console.log("rota pets")
   return (
     <div>
       <Routes>

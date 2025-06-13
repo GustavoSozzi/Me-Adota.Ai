@@ -58,3 +58,23 @@
   color: #000;
   text-align: left;
 }
+
+.button{
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: black;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.qrcode{
+  margin: 10px;
+  text-align: center;
+}
+
+.qrcode img{
+  width: 150px;
+  height: 150px;
+}

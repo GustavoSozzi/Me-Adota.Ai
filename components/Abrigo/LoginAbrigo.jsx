@@ -1,17 +1,18 @@
-import React from 'react';
-import { useNavigate} from 'react-router-dom';
+import React, { useContext } from 'react';
 import useForm from '../Forms/useForm';
 import Input from '../Forms/Input';
 import styles from './Abrigo.module.css';
 import { ABRIGO_LOGIN } from '../../data/api';
 import useFetch from '../../hooks/useFetch';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../../hooks/userContext';
 
 const LoginAbrigo = () => {
   const email = useForm('email');
   const senha = useForm('password');
   const { loading, error, request } = useFetch();
   const navigate = useNavigate();
-
+  const {loginUser} = useContext(UserContext);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -24,9 +25,9 @@ const LoginAbrigo = () => {
     const { response, json } = await request(url, options);
 
     if (response && response.ok) {
-      navigate('/abrigo/sucessfullAbrigo')
-      localStorage.setItem('usuario', JSON.stringify({ tipo: 'abrigo', ...json }));
+      loginUser({tipo: 'abrigo', ...json})
       alert('Login realizado com sucesso!');
+      navigate('/pets')
     } else {
       alert('Erro ao fazer login. Verifique suas credenciais.');
     }

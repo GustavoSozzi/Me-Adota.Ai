@@ -33,9 +33,7 @@ const App = () => {
             <Route
               path="/pets/*"
               element={
-                <ProtectedRouter>
                   <Pets />
-                </ProtectedRouter>
               }
             />
             <Route path="doacoes" element={<Doacoes />} />

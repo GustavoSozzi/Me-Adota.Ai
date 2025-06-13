@@ -172,17 +172,16 @@ export async function getPetsByTutorId(tutorId){
     'SELECT * FROM Pet Where tutorId = ?',
     [tutorId]
   )
-  return rows
+  return rows;
 }
 
 
-// 🔹 Teste: buscar administradores e exibir no console
+
 const result = await getAdministradores();
 console.log(result);
 
 export { pool };
 
-// Criar token para abrigo
 export async function createTokenAbrigo(abrigoId, token) {
   const [result] = await pool.query(
     `INSERT INTO tokens_abrigos (abrigo_id, token) VALUES (?, ?)
@@ -197,7 +196,6 @@ export async function createTokenAbrigo(abrigoId, token) {
   };
 }
 
-// Buscar token pelo abrigoId
 export async function getTokenByAbrigoId(abrigoId) {
   const [rows] = await pool.query(
     `SELECT * FROM tokens_abrigos WHERE abrigo_id = ?`,
@@ -206,7 +204,6 @@ export async function getTokenByAbrigoId(abrigoId) {
   return rows[0];
 }
 
-// Deletar token pelo abrigoId (ex: logout)
 export async function deleteTokenByAbrigoId(abrigoId) {
   const [result] = await pool.query(
     `DELETE FROM tokens_abrigos WHERE abrigo_id = ?`,
@@ -215,10 +212,17 @@ export async function deleteTokenByAbrigoId(abrigoId) {
   return result.affectedRows > 0;
 }
 
-// Limpar tokens expirados (executar periodicamente)
 export async function deleteExpiredTokens() {
   const [result] = await pool.query(
     `DELETE FROM tokens_abrigos WHERE created_at < (NOW() - INTERVAL 1 HOUR)`
   );
   return result.affectedRows;
+}
+
+export async function updateAbrigo(IsTrue, id){
+  const [result] = await pool.query(
+    `UPDATE Abrigo SET checked = ? WHERE id = ?`,
+    [IsTrue, id]
+  )
+  return result;
 }
