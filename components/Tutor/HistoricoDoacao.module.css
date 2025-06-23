@@ -1,0 +1,106 @@
+.container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: #333;
+}
+
+.loading, .error, .emptyMessage {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+}
+
+.error {
+  color: #f02849;
+}
+
+.emptyMessage {
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.button {
+  margin-top: 1rem;
+  padding: 0.8rem 1.5rem;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.button:hover {
+  background: #45a049;
+}
+
+.donationsList {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.donationCard {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.donationInfo {
+  flex: 2;
+}
+
+.donationInfo h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.donationInfo p {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.receiptLink {
+  display: inline-block;
+  margin-top: 0.8rem;
+  color: #2196F3;
+  text-decoration: none;
+}
+
+.receiptLink:hover {
+  text-decoration: underline;
+}
+
+.animalInfo {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.animalImage {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+@media (max-width: 768px) {
+  .donationCard {
+    flex-direction: column;
+  }
+  
+  .animalInfo {
+    justify-content: center;
+    margin-top: 1rem;
+  }
+}

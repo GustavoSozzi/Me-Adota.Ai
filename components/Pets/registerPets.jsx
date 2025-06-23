@@ -84,7 +84,7 @@ const RegisterPets = () => {
     <div className={styles.animeLeft}>
       <nav>
         <Link to="/" arial-label="Dogs-Home">
-          <img src={icon_pontos} alt="pontos"/>
+          <img src={icon_pontos} alt="pontos" />
           <img src={dog} alt="dog - nav" onClick={handleLogout}/>
         </Link>
         <li className={styles.userSection}>

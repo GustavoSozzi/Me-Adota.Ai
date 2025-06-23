@@ -111,12 +111,13 @@
 .animeLeft{
   opacity: 0;
   transform: translate(-20px);
-  animation: animeLeft 03s forwards;
+  animation: animeLeft 65s forwards
+  ease-in-out;
 }
 
 @keyframes animeLeft{
   to{
     opacity: 1;
-    transform: initial;
+    transform: translateX(0);
   }
 }

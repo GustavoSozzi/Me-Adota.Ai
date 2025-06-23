@@ -1,0 +1,91 @@
+.container {
+  background-color: #2c2c2c;
+  color: white;
+  height: 90%;
+  width: 100%;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-left: 37rem;
+  margin-top: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.logo {
+  width: 80px;
+  z-index: 2;
+}
+
+.iconLeft,
+.iconRight {
+  width: 40px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  opacity: 0.8;
+}
+
+.iconLeft {
+  left: 0;
+}
+
+.iconRight {
+  right: 0;
+}
+
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: #f0f0f0;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+}
+
+.card {
+  background-color: #1e1e1e;
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 1rem;
+  width: 250px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: #8A2BE2;
+}
+
+.nav{
+  padding: 7px;
+}
+
+.card p {
+  margin: 0.5rem 0;
+}
+
+.card a {
+  color: #8ab4f8;
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+@media (max-width: 600px) {
+  .cardsContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card {
+    width: 90%;
+  }
+}

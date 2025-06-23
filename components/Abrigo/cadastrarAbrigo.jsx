@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import dogAbrigo from '../../img/svg/dogAbrigo.png';
 import SucessfullAbrigo from './SucessfullAbrigo';
 import styles from './Abrigo.module.css';
-import { ABRIGO_REGISTER, SEND_MAIL } from '../../data/api';
+import { ABRIGO_LOGIN, ABRIGO_REGISTER, SEND_MAIL } from '../../data/api';
 import useFetch from '../../hooks/useFetch';
 
 const CadastrarAbrigo = () => {
@@ -17,64 +17,51 @@ const CadastrarAbrigo = () => {
   const endereco = useForm();
   const password = useForm();
 
-  const {request, loading, error} = useFetch();
+  const { request, loading, error } = useFetch();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    const abrigoData = {
+  if (
+    !razaoSocial.value.trim() ||
+    !cnpj.value.trim() ||
+    !email.value.trim() ||
+    !telefone.value.trim() ||
+    !password.value.trim() ||
+    !endereco.value.trim()
+  ) {
+    alert('Por favor, preencha todos os campos.');
+    return;
+  }
+
+  try {
+    const { url, options } = ABRIGO_REGISTER({
       razaoSocial: razaoSocial.value,
       cnpj: cnpj.value,
       email: email.value,
       telefone: telefone.value,
       password: password.value,
       endereco: endereco.value,
-    };
+    });
 
-    try {
-      const response = await fetch('http://localhost:8080/abrigos', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(abrigoData),
-      });
+    const { response } = await request(url, options);
 
-      if (response.ok) {
-        const emailBody = {
-          from: 'noreply@meadotaai.com.br',
-          to: email.value,
-          subject: 'Bem-vindo ao Me Adota!',
-          message: `
-          <h2>Olá ${razaoSocial.value},</h2>
-          <p>Seu abrigo foi cadastrado com sucesso na plataforma <strong>Me Adota</strong>! 🐾</p>
-          <p>Estamos muito felizes em tê-lo conosco. Agora você pode divulgar seus pets e receber apoio da comunidade.</p>
-          <p><a href="http://localhost:3000/login">Clique aqui para acessar sua conta</a></p>
-          <p>Se você não realizou este cadastro, por favor ignore este email.</p>
-          <br/>
-          <p>Equipe Me Adota ❤️</p>
-        `,
-        };
-
-        const [mailUrl, mailOptions] = SEND_MAIL(emailBody);
-        await request(mailUrl, mailOptions);
-
-        navigate('/abrigo/sucessfullAbrigo', { state: { email: email.value } });
-        razaoSocial.setValue('');
-        cnpj.setValue('');
-        email.setValue('');
-        telefone.setValue('');
-        password.setValue('');
-        endereco.setValue('');
-      } else {
-        const error = await response.json();
-        alert('Erro: ' + error.error);
-      }
-    } catch (err) {
-      console.error('Erro ao cadastrar abrigo:', err);
-      alert('Erro ao conectar com o servidor.');
+    if (response.ok) {
+      navigate('/abrigo/sucessfullAbrigo', { state: { email: email.value } });
+      razaoSocial.setValue('');
+      cnpj.setValue('');
+      email.setValue('');
+      telefone.setValue('');
+      password.setValue('');
+      endereco.setValue('');
+    } else {
+      alert('Erro ao cadastrar abrigo.');
     }
-  };
+  } catch (error) {
+    console.error(error);
+    alert('Ocorreu um erro inesperado.');
+  }
+};
 
   return (
     <div>
@@ -151,13 +138,13 @@ const CadastrarAbrigo = () => {
         </div>
 
         <div className={styles.formButtons}>
-          <button type="button" className={styles.cancelBtn}>
-            Cancelar
-          </button>
-          <button type="submit" className={styles.confirmBtn}>
-            Confirmar
+          <button type="submit" className={styles.confirmBtn}
+          >
+            {loading ? 'Cadastrando...' : 'Confirmar'}
           </button>
         </div>
+
+        {error && <p className={styles.error}>Erro: {error}</p>}
       </form>
     </div>
   );

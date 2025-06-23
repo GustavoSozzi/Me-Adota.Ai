@@ -14,6 +14,8 @@ import Pets from '../components/Pets/Pets';
 import Doacoes from '../components/Doacoes/Doacoes';
 import DetalhePet from '../components/Pets/feedPets/DetalhePet';
 import Footer from '../components/Footer';
+import Sobre from '../components/Sobre/Sobre';
+import HistoricoDoacoes from '../components/Historico/Historico';
 import ProtectedRouter from '../hooks/helper/protectedRouter';
 import { UserStorage } from '../hooks/userContext';
 
@@ -30,6 +32,7 @@ const App = () => {
             <Route path="/login/*" element={<Login />} />
             <Route path="tutor" element={<Tutor />} />
             <Route path="/abrigo/*" element={<Abrigo />} />
+            <Route path="sobre" element={<Sobre/>}/>
             <Route
               path="/pets/*"
               element={
@@ -39,6 +42,7 @@ const App = () => {
             <Route path="doacoes" element={<Doacoes />} />
             <Route path="animal/:id" element={<DetalhePet />} />
             <Route path="conta/*" element={<Conta />} />
+            <Route path="historico" element={<HistoricoDoacoes/>} />
           </Routes>
         </main>
         <Footer />

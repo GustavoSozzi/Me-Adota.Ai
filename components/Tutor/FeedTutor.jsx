@@ -1,31 +1,29 @@
 import React, { useState } from 'react';
 import styles from './FeedTutor.module.css';
 import { useEffect } from 'react';
+import { ANIMAIS_GET_TUTOR } from '../../data/api';
 
 const FeedTutor = () => {
-  const [animais, setAnimais] = useState([])
+  const [animais, setAnimais] = useState([]);
 
   useEffect(() => {
-  async function fetchAnimais() {
-    try {
-      const response = await fetch('http://localhost:8080/animais', {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      });
+    async function fetchAnimais() {
+      try {
+        const {url, options} = ANIMAIS_GET_TUTOR()
+        const response = await fetch(url, options)
 
-      if (!response.ok) {
-        throw new Error('Erro ao buscar animais');
+        if(!response.ok){
+          throw new Error('Erro ao buscar animais')
+        }
+        const data = await response.json()
+        setAnimais(data);
+      } catch (error) {
+        console.error('Erro ao buscar animais: ', error);
       }
-
-      const data = await response.json();
-      setAnimais(data);
-    } catch (error) {
-      console.error('Erro ao buscar animais: ', error);
     }
-  }
 
-  fetchAnimais(); 
-}, []);
+    fetchAnimais();
+  }, []);
 
   return (
     <div className={styles.feedContainer}>
@@ -40,11 +38,13 @@ const FeedTutor = () => {
               alt={`Foto de ${animal.nome}`}
               className={styles.image}
             />
-            <div className={styles.info}>
-              <p><strong>{animal.nome}</strong></p>
-              <p>{animal.idade}</p>
-              <p>{animal.status}</p>
-              <p>{animal.descricao}</p>
+            <div className={`${styles.feed} animeLeft`}>
+              <div className={styles.info}>
+                <p><strong>{animal.nome}</strong></p>
+                <p>{animal.idade}</p>
+                <p className={`${styles.status} ${animal.status.toLowerCase()}`}>{animal.status}</p>
+                <p>{animal.descricao}</p>
+              </div>
             </div>
           </div>
         ))}

@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 
 const Conta = () => {
   return (
-    
     <header className={styles.header}>
       <nav className={`${styles.nav} container`}>
         {''}

@@ -3,6 +3,19 @@
   margin-left: 19.5rem;
 }
 
+.titleLoginAbrigo::after{
+  content: "";
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: #fb1;
+  position: absolute;
+  bottom: 5px;
+  left: -5px;
+  border-radius: 0.2rem;
+  z-index: -1;
+}
+
 
 .nav {
   background-color: #C0C0C0;
@@ -47,6 +60,15 @@
 
 .nav ul img:hover {
   transform: scale(1.05);
+}
+
+.navLogin{
+  padding: 6px;
+}
+
+.navLogin ul li {
+  list-style: none;
+  text-decoration: none;
 }
 
 

@@ -1,0 +1,102 @@
+.sobreContainer {
+  font-family: 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: #fdfdfd;
+  min-height: 80vh;
+  margin-bottom: 6rem;
+  width: 100vh;
+  display: flex;
+  flex-direction: column;
+  margin-left: 35rem;
+  margin-top: 3rem;
+}
+
+.sobreHeader {
+  background-color: #ff7e5f;
+  color: white;
+  text-align: center;
+  padding: 2rem 1rem;
+  position: relative;
+}
+
+.logo {
+  max-width: 80px;
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+}
+
+.sobreHeader h1 {
+  font-size: 2rem;
+  margin-top: 1rem;
+}
+
+.sobreMain {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sobreMain p {
+  font-size: 1.2rem;
+}
+
+.cardsSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 2rem;
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  flex: 1 1 280px;
+  max-width: 300px;
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card h2 {
+  color: #ff7e5f;
+  margin-bottom: 0.5rem;
+}
+
+.sobreFooter {
+  margin-top: auto;
+  background-color: #f1f1f1;
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.nav{
+  background-color: white;
+  padding: 1px;
+  position: absolute;
+}
+
+.nav ul li{
+  text-decoration: none;
+  list-style: none;
+}
+
+@media (max-width: 600px) {
+  .sobreHeader h1 {
+    font-size: 1.5rem;
+  }
+
+  .sobreMain p {
+    font-size: 1rem;
+  }
+}
