@@ -2,7 +2,12 @@
 
 **Me Adota Aí** é uma plataforma para facilitar a adoção de pets, conectando abrigos, tutores e pessoas interessadas em adotar ou ajudar animais em situação de vulnerabilidade.
 
-![Tela inicial do projeto](![image](https://github.com/user-attachments/assets/1f90b7a6-2de7-48af-b55e-f5fc8df3c7a8)
+
+
+
+![image](https://github.com/user-attachments/assets/d6ce916d-ce6d-4bab-8664-20740675e999)
+
+
 
 ## ✨ Funcionalidades
 
